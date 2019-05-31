@@ -26,3 +26,6 @@ def req_vendor(select,name):
             line.append(name[i].search(j))
         return_list.append(line)
     return return_list
+
+def a(x):
+    return x
