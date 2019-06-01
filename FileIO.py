@@ -25,8 +25,10 @@ def loadFile(url):
     return df
 
 def LoadYaml(url):
-    with open(url, “r”) as stream:
-    data = yaml.load(stream)
+    data = None
+    with open(url, "r", encoding="utf-8") as stream:
+        data = yaml.load(stream)
+    return data
 
 def loadvendor():
     loadFile("./vendor.csv")
@@ -34,14 +36,15 @@ def loadvendor():
 def loadproduct():
     loadFile("./product.csv")
 
-def updata(data_tpye,data_database):
+#def updata(data_tpye,data_database):
     
 
-def upload
+#def upload():
     
 #=============================== main =================================
 if __name__ == '__main__':
     #=============================== test =================================
+    '''
     list_data = []
     
     for index in range(5):
@@ -49,10 +52,14 @@ if __name__ == '__main__':
         list_data.append(a)
         
     list_data[0].name = "a"
+    
     list_data[0].RN = 123456789654
-        
+            
     
     print(list_data[0].name)
     
     print(list_data[1].name)
     loadvendor()
+    '''
+    
+    data_dict = LoadYaml("./vendor/聲寶.yml")
