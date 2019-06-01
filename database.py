@@ -52,9 +52,18 @@ class product():
     weight = 0
     category = ""
     
-    def __init__(self,name,SN):
-        self.name = name
-        self.SN = SN
+    def __init__(self,name,SN,data_dict = None):
+        if data_dict is None:
+            self.name = name
+            self.SN = SN
+        else:
+            self.number = data_dict["number"]
+            self.name = data_dict["name"]
+            self.SN = data_dict["SN"]
+            self.warranty = data_dict["warranty"]
+            self.volume = data_dict["volume"]
+            self.weight = data_dict["weight"]
+            self.category = data_dict["category"]
         
     def search(self,type_str):
         if type_str == "number":
