@@ -7,6 +7,7 @@ Created on Sun May 26 15:27:48 2019
 import os
 import database
 import pandas as pd
+import yaml
     
 #=============================== function =================================
 def loadFile(url):
@@ -22,6 +23,10 @@ def loadFile(url):
         df = pd.DataFrame(NewList, columns = columns_list)
         df.to_csv(url,encoding='utf_8_sig' , index = False)
     return df
+
+def LoadYaml(url):
+    with open(url, “r”) as stream:
+    data = yaml.load(stream)
 
 def loadvendor():
     loadFile("./vendor.csv")
