@@ -4,62 +4,43 @@ Created on Sun May 26 15:27:48 2019
 
 @author: brian
 """
-import os
 import database
-import pandas as pd
 import yaml
     
 #=============================== function =================================
-def loadFile(url):
-    if os.path.isfile(url):
-        df = pd.read_csv(url)
-    else:
-        if "vendor" in url:
-            NewList = [["","","","","",""]]
-            columns_list = ["name","number","principle","address","RN","product"]
-        else:
-            NewList = ["","","","","","",""]
-            columns_list = ["number","name","SN","warranty","volume","weight","category"]
-        df = pd.DataFrame(NewList, columns = columns_list)
-        df.to_csv(url,encoding='utf_8_sig' , index = False)
-    return df
-
 def LoadYaml(url):
-    data = None
-    with open(url, "r", encoding="utf-8") as stream:
-        data = yaml.load(stream)
+    try:
+        with open(url, "r", encoding="utf-8") as stream:
+            data = yaml.load(stream)
+    except:
+        data = None
     return data
 
-def loadvendor():
-    loadFile("./vendor.csv")
+def LoadData(name,typeSelect):
+    typeCheck = ["vendor","product"]
+    if typeSelect not in typeCheck:
+        return None
+    load_data = LoadYaml("./" + typeSelect + "/" + name)
+    if load_data is not None:
+        if typeSelect in load_data:
+            return load_data[typeSelect]
+        print("檔案讀取失敗，格式錯誤")
+    else:
+        print("查無此檔案")
+    return None
 
-def loadproduct():
-    loadFile("./product.csv")
+def formatVendor(data_dict):
+    return database.vendor(data_dict["name"],data_dict["RN"],data_dict)
 
-#def updata(data_tpye,data_database):
-    
-
-#def upload():
+def formatVendor_list(data_list):
+    final = []
+    for data_ in data_list:
+        final.append(formatVendor())
+    return final
     
 #=============================== main =================================
 if __name__ == '__main__':
     #=============================== test =================================
-    '''
-    list_data = []
-    
-    for index in range(5):
-        a = database.vendor("brian",123456)
-        list_data.append(a)
-        
-    list_data[0].name = "a"
-    
-    list_data[0].RN = 123456789654
-            
-    
-    print(list_data[0].name)
-    
-    print(list_data[1].name)
-    loadvendor()
-    '''
-    
-    data_dict = LoadYaml("./vendor/聲寶.yml")
+    data_dict = LoadData("聲寶.yml","vendor")
+    a = formatVendor(data_dict)
+    print(a.principle)

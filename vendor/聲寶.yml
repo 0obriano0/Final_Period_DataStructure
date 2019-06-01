@@ -1,7 +1,8 @@
 vendor:
     name: "聲寶"
     number: 11111
-    RN: 228855
+    #廠商代號
+    RN: 
     principle: "張先生"
     address: "叉叉國叉叉市"
     product: 

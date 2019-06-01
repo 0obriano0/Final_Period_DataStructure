@@ -11,11 +11,19 @@ class vendor():
     RN = 0
     principle = ""
     address = ""
-    product = []
+    product = {}
     
-    def __init__(self,name,RN):
-        self.name = name
-        self.RN = RN
+    def __init__(self,name,RN,data_dict = None):
+        if data_dict is None:
+            self.name = name
+            self.RN = RN
+        else:
+            self.name = data_dict["name"]
+            self.number = data_dict["number"]
+            self.RN = data_dict["RN"]
+            self.principle = data_dict["principle"]
+            self.address = data_dict["address"]
+            self.product = data_dict["product"]
         
     def search(self,type_str):
         if type_str == "name":
