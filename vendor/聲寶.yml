@@ -1,10 +1,10 @@
 vendor:
-    name: "聲寶"
-    number: 11111
-    #廠商代號
-    RN: 
-    principle: "張先生"
-    address: "叉叉國叉叉市"
-    product: 
-        AM-PC22DC1: 00001
-        AU-PC22DC1: 00002
+  name: "聲寶"
+  number: 11111
+  #廠商代號
+  RN: 
+  principle: "張先生"
+  address: "叉叉國叉叉市"
+  product: 
+    AM-PC22DC1: 00001
+    AU-PC22DC1: 00002

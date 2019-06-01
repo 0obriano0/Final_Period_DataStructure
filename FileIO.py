@@ -19,7 +19,7 @@ def loadData(name,typeSelect):
     typeCheck = ["vendor","product"]
     if typeSelect not in typeCheck:
         return None
-    load_data = loadYaml("./" + typeSelect + "/" + name)
+    load_data = loadYaml("./" + typeSelect + "/" + name + ".yml")
     if load_data is not None:
         if typeSelect in load_data:
             return load_data[typeSelect]
@@ -60,7 +60,6 @@ def createYaml(data_database,typeSelect):
             print("傳進來的資料結構有問題")
             return 0
         final_dict[typeSelect] = secand_dict
-        #with open(url, 'w', encoding="utf-8") as outfile:
         with open(url, 'w', encoding="utf-8") as outfile:
             yaml.dump(final_dict, outfile, default_flow_style=False, encoding=('utf-8'), allow_unicode=True)
         return 1
@@ -80,11 +79,20 @@ def formatVendor_list(data_list):
 #=============================== main =================================
 if __name__ == '__main__':
     #=============================== test =================================
+    #讀取檔案---------------------------------範例
     a = []
-    data_dict = loadData("聲寶.yml","vendor")
+    data_dict = loadData("聲寶","vendor")
     a.append(formatVendor(data_dict))
     print(a[0].principle)
+    
+    #利用完整的檔案來做輸出/讀取---------------範例
     a[0].name = "abc"
     createYaml(a[0],"vendor")
-    data_dict = loadData("abc.yml","vendor")
+    data_dict = loadData("abc","vendor")
+    a.append(formatVendor(data_dict))
+    
+    #利用創造出來的檔案來做輸出/讀取-----------範例
+    b = database.vendor("廠商一","123456789")
+    createYaml(b,"vendor")
+    data_dict = loadData("廠商一","vendor")
     a.append(formatVendor(data_dict))
