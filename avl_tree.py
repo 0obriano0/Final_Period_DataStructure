@@ -273,6 +273,7 @@ if __name__ == "__main__":
     print("deleting ...       ", 4)
     print("Inorder traversal:", a.inorder_traverse() )
     '''
+    print("---------------------------分隔線---------------------------")
     b = AVLTree()
     b.insert(50,database.vendor("廠商一","123456789"))
     b.insert(40,database.vendor("廠商二","4444"))
@@ -295,4 +296,13 @@ if __name__ == "__main__":
     print(b.search(36).name)
     print(b.search(38).name)
     
+    print(b.inorder_traverse())
+    
+    print("\n---------------------------分隔線---------------------------")
+    b.delete(70)
+    if b.search(70) is not None:
+        print(b.search(70).name)
+    else:
+        print("找不到 70")
+    b.display()
     print(b.inorder_traverse())
