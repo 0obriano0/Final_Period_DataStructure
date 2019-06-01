@@ -11,9 +11,7 @@ class Node():
         self.key = key
         self.left = None 
         self.right = None 
-
-
-
+        self.database_ = None
 
 class AVLTree():
     def __init__(self, *args):
@@ -34,11 +32,11 @@ class AVLTree():
     def is_leaf(self):
         return (self.height == 0) 
     
-    def insert(self, key):
+    def insert(self, key, database_ = None):
         tree = self.node
         
         newnode = Node(key)
-        
+        newnode.database_ = database_
         if tree == None:
             self.node = newnode 
             self.node.left = AVLTree() 
@@ -46,10 +44,10 @@ class AVLTree():
             debug("Inserted key [" + str(key) + "]")
         
         elif key < tree.key: 
-            self.node.left.insert(key)
+            self.node.left.insert(key,database_)
             
         elif key > tree.key: 
-            self.node.right.insert(key)
+            self.node.right.insert(key,database_)
         
         else: 
             debug("Key [" + str(key) + "] already in tree.")
@@ -132,7 +130,19 @@ class AVLTree():
             self.balance = self.node.left.height - self.node.right.height 
         else: 
             self.balance = 0 
-
+            
+    def search(self,key):
+        if self.node != None: 
+            if self.node.key == key: 
+                return  self.node.database_
+            elif key < self.node.key: 
+                return self.node.left.search(key)  
+            elif key > self.node.key: 
+                return self.node.right.search(key)
+        else: 
+            return None
+    
+    
     def delete(self, key):
         # debug("Trying to delete at node: " + str(self.node.key))
         if self.node != None: 
@@ -236,10 +246,12 @@ class AVLTree():
                 self.node.right.display(level + 1, '>')
         
 
-'''
+
 
 # Usage example
 if __name__ == "__main__": 
+    import database
+    '''
     a = AVLTree()
     print("----- Inserting -------")
     #inlist = [5, 2, 12, -4, 3, 21, 19, 25]
@@ -254,10 +266,33 @@ if __name__ == "__main__":
     a.delete(4)
     # a.delete(5) 
     a.display()
-    
+
     print 
     print("Input            :", inlist )
     print("deleting ...       ", 3)
     print("deleting ...       ", 4)
     print("Inorder traversal:", a.inorder_traverse() )
-'''
+    '''
+    b = AVLTree()
+    b.insert(50,database.vendor("廠商一","123456789"))
+    b.insert(40,database.vendor("廠商二","4444"))
+    b.insert(60,database.vendor("廠商三","44444"))
+    b.insert(30,database.vendor("廠商四","4444"))
+    b.insert(-10,database.vendor("廠商五","4444"))
+    b.insert(70,database.vendor("廠商六","4444"))
+    b.insert(35,database.vendor("廠商七","4444"))
+    b.insert(36,database.vendor("廠商八","4444"))
+    b.insert(38,database.vendor("廠商九","4444"))
+    
+    b.display()
+    print(b.search(50).name)
+    print(b.search(40).name)
+    print(b.search(60).name)
+    print(b.search(30).name)
+    print(b.search(-10).name)
+    print(b.search(70).name)
+    print(b.search(35).name)
+    print(b.search(36).name)
+    print(b.search(38).name)
+    
+    print(b.inorder_traverse())
