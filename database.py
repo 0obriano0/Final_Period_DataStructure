@@ -5,7 +5,7 @@ Created on %(date)s
 @author: %(show8301)s
 """
 
-class vendor():
+class vendor:
     name = ""
     RN = 0
     principle = ""
@@ -42,7 +42,7 @@ class vendor():
                 
     def info(self): return [self.name,self.principle,self.principle,self.address,self.RN,self.product]
         
-class product():
+class product:
     number = ""
     name = ""
     SN = ""
@@ -83,3 +83,15 @@ class product():
             return None
         
     def info(self): return [self.number,self.name,self.SN,self.warranty,self.volume,self.weight,self.category]
+
+class tools:
+    def a1z26(str_data):
+        final_str_data = ""
+        for char_data in str_data:
+            if ord(char_data) >= ord("0") and ord(char_data) <= ord("9"):
+                final_str_data = final_str_data + char_data
+            elif ord(char_data) >= ord("a") and ord(char_data) <= ord("z"):
+                final_str_data = final_str_data + str(ord(char_data) - ord("a"))
+            elif ord(char_data) >= ord("A") and ord(char_data) <= ord("Z"):
+                final_str_data = final_str_data + str(ord(char_data) - ord("A")+26)
+        return int(final_str_data)

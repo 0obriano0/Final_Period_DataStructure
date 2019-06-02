@@ -36,10 +36,9 @@ def createYaml(data_database,typeSelect):
         if typeSelect  == "vendor":
             url = "./" + typeSelect + "/" + data_database.name + ".yml"
             if loadYaml(url) is not None:
-                print("此檔案已經存在")
-                return 0
+                #print("此檔案已經存在")
+                return -1
             secand_dict["name"] = data_database.name
-            secand_dict["number"] = data_database.number
             secand_dict["RN"] = data_database.RN
             secand_dict["principle"] = data_database.principle
             secand_dict["address"] = data_database.address
@@ -47,8 +46,8 @@ def createYaml(data_database,typeSelect):
         elif typeSelect == "product":
             url ="./" + typeSelect + "/" + data_database.number + ".yml"
             if loadYaml(url) is not None:
-                print("此檔案已經存在")
-                return 0
+                #print("此檔案已經存在")
+                return -1
             secand_dict["name"] = data_database.name
             secand_dict["number"] = data_database.number
             secand_dict["SN"] = data_database.SN
@@ -57,14 +56,14 @@ def createYaml(data_database,typeSelect):
             secand_dict["weight"] = data_database.weight
             secand_dict["category"] = data_database.category
         else:
-            print("傳進來的資料結構有問題")
-            return 0
+            #print("傳進來的資料結構有問題")
+            return -2
         final_dict[typeSelect] = secand_dict
         with open(url, 'w', encoding="utf-8") as outfile:
             yaml.dump(final_dict, outfile, default_flow_style=False, encoding=('utf-8'), allow_unicode=True)
         return 1
     else:
-        print("傳入的資料結構是: None")
+        #print("傳入的資料結構是: None")
         return 0
 
 def formatVendor(data_dict):
@@ -104,3 +103,6 @@ if __name__ == '__main__':
     createYaml(b,"vendor")
     data_dict = loadData("廠商一","vendor")
     a.append(formatVendor(data_dict))
+    
+    data_num = 0
+    data_num = database.tools.a1z26("zAb")
