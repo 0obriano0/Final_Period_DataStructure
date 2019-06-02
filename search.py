@@ -7,6 +7,7 @@ Created on Sun May 26 15:55:56 2019
 #select RN and number from vendor where name = brian
 
 import database 
+import avl_tree as avl
 import pandas as pd
 
 
@@ -26,3 +27,7 @@ def req_vendor(select,name):
             line.append(name[i].search(j))
         return_list.append(line)
     return return_list
+
+def get_all_vendor():
+    vendor_data = avl.AVLTree()
+    
