@@ -65,22 +65,7 @@ class product:
             self.category = data_dict["category"]
         
     def search(self,type_str):
-        if type_str == "number":
-            return self.number
-        elif type_str == "name":
-            return self.name
-        elif type_str == "SN":
-            return self.SN
-        elif type_str == "warranty":
-            return self.warranty
-        elif type_str == "volume":
-            return self.volume
-        elif type_str == "weight":
-            return self.weight
-        elif type_str == "category":
-            return self.category
-        else:
-            return None
+        return eval("self." + type_str)
         
     def info(self): return [self.number,self.name,self.SN,self.warranty,self.volume,self.weight,self.category]
 
