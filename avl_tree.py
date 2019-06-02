@@ -244,9 +244,16 @@ class AVLTree():
                 self.node.left.display(level + 1, '<')
             if self.node.left != None:
                 self.node.right.display(level + 1, '>')
-        
-
-
+    
+    def get_all(self,):
+        database = []
+        for data in self.inorder_traverse():
+            database.append(self.search(data))
+        return database
+    
+    def show(self,):
+        for data in self.get_all():
+            print(data.RN," = ",data.name)
 
 # Usage example
 if __name__ == "__main__": 
@@ -279,28 +286,28 @@ if __name__ == "__main__":
     b.insert(50,database.vendor("廠商一","123456789"))
     data_dict_translat["廠商一"] = 50
     
-    b.insert(40,database.vendor("廠商二","4444"))
+    b.insert(40,database.vendor("廠商二","4455544"))
     data_dict_translat["廠商二"] = 40
     
-    b.insert(60,database.vendor("廠商三","44444"))
+    b.insert(60,database.vendor("廠商三","44466644"))
     data_dict_translat["廠商三"] = 60
     
-    b.insert(30,database.vendor("廠商四","4444"))
+    b.insert(30,database.vendor("廠商四","448844"))
     data_dict_translat["廠商四"] = 30
     
-    b.insert(-10,database.vendor("廠商五","4444"))
+    b.insert(-10,database.vendor("廠商五","4488944"))
     data_dict_translat["廠商五"] = -10
     
-    b.insert(70,database.vendor("廠商六","4444"))
+    b.insert(70,database.vendor("廠商六","4449994"))
     data_dict_translat["廠商六"] = 70
     
-    b.insert(35,database.vendor("廠商七","4444"))
+    b.insert(35,database.vendor("廠商七","4488844"))
     data_dict_translat["廠商七"] = 35
     
-    b.insert(36,database.vendor("廠商八","4444"))
+    b.insert(36,database.vendor("廠商八","4477744"))
     data_dict_translat["廠商八"] = 36
     
-    b.insert(38,database.vendor("廠商九","4444"))
+    b.insert(38,database.vendor("廠商九","448899944"))
     data_dict_translat["廠商九"] = 38
     
     b.display()
@@ -324,3 +331,6 @@ if __name__ == "__main__":
         print("找不到 70")
     b.display()
     print(b.inorder_traverse())
+    b.show()
+    abcdefg = []
+    abcdefg = b.get_all()
