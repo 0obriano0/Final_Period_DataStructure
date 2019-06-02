@@ -85,9 +85,7 @@ class product:
     def info(self): return [self.number,self.name,self.SN,self.warranty,self.volume,self.weight,self.category]
 
 class tools:
-    def __init__(self,):
-        print("你跑了tools")
-    def a1z26(self,str_data):
+    def a1z26(str_data):
         final_str_data = ""
         for char_data in str_data:
             if ord(char_data) >= ord("0") and ord(char_data) <= ord("9"):

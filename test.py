@@ -18,4 +18,8 @@ list_data.append(db.vendor('mnvfxd',63545653))
 list_data.append(db.vendor('ew4rghe',7837483))
 list_data.append(db.vendor('r5yebnr',77154153))
 
-print(search.require('name and number','vendor',list_data))
+search_data = search.search()
+data = []
+data = search_data.vendor_data.get_all()
+for i in data:
+    print(i.name)
