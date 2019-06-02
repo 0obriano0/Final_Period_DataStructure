@@ -10,7 +10,10 @@ import database
 import avl_tree as avl
 import pandas as pd
 
+global vendor_data
+global product_data
 
+    
 def require(select,data,name):
     if data == 'vendor' :
         return req_vendor(select,name)
@@ -31,3 +34,15 @@ def req_vendor(select,name):
 def get_all_vendor():
     vendor_data = avl.AVLTree()
     
+def get_all_product():
+    product_data = avl.AVLTree()
+    
+    
+    
+    
+    
+    
+    
+def __init__(self):
+    get_all_vendor()
+    get_all_product()
