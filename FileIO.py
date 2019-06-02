@@ -66,21 +66,30 @@ def createYaml(data_database,typeSelect):
         #print("傳入的資料結構是: None")
         return 0
 
-def formatVendor(data_dict):
-    return database.vendor(data_dict["name"],data_dict["RN"],data_dict)
+def formatDatabase(data_dict,typeSelect):
+    if typeSelect == "vendor":
+        return database.vendor(data_dict["name"],data_dict["RN"],data_dict)
+    elif typeSelect == "product":
+        return database.vendor(data_dict["name"],data_dict["SN"],data_dict)
 
-def formatVendor_list(data_list):
+def formatDatabase_list(data_list,typeSelect):
     final = []
     for data_ in data_list:
-        final.append(formatVendor())
+        final.append(formatDatabase(data_,typeSelect))
     return final
 
-def getalldata(type_name):
+def getalldata(type_name,typeSelect):
     a = []
-    a.append(formatVendor({"name":"廠商一","RN":"dddee544442e2","principle":"張先生","address":"新北市","product":[]}))
-    a.append(formatVendor({"name":"廠商二","RN":"ddddwe5545d22e2","principle":"張小姐","address":"台北市","product":[]}))
-    a.append(formatVendor({"name":"廠商三","RN":"dwwwd55555666e2","principle":"黃先生","address":"台中市","product":[]}))
-    a.append(formatVendor({"name":"廠商四","RN":"dddee5555889swwe2","principle":"鄭先生","address":"高雄市","product":[]}))
+    if typeSelect == "vendor":
+        a.append(formatDatabase({"name":"廠商一","RN":"dddee544442e2","principle":"張先生","address":"新北市","product":[]}),"vendor")
+        a.append(formatDatabase({"name":"廠商二","RN":"ddddwe5545d22e2","principle":"張小姐","address":"台北市","product":[]}),"vendor")
+        a.append(formatDatabase({"name":"廠商三","RN":"dwwwd55555666e2","principle":"黃先生","address":"台中市","product":[]}),"vendor")
+        a.append(formatDatabase({"name":"廠商四","RN":"dddee5555889swwe2","principle":"鄭先生","address":"高雄市","product":[]}),"vendor")
+    elif typeSelect == "product":
+        a.append(formatDatabase({"name":"49吋螢幕","SN":1234564658,"warranty":"2019-02-05","weight":50,"volume":100,"category":"電腦周邊"}),"vendor")
+        a.append(formatDatabase({"name":"i7 電腦","SN":4556321548,"warranty":"2089-02-05","weight":400,"volume":200,"category":"電腦"}),"vendor")
+        a.append(formatDatabase({"name":"鍵盤","SN":45165748777,"warranty":"2019-12-05","weight":500,"volume":300,"category":"電腦周邊"}),"vendor")
+        a.append(formatDatabase({"name":"耳機","SN":5468785213215,"warranty":"2012-05-31","weight":1000,"volume":400,"category":"電腦周邊"}),"vendor")
     return a
     
 #=============================== main =================================
@@ -89,20 +98,20 @@ if __name__ == '__main__':
     #讀取檔案---------------------------------範例
     a = []
     data_dict = loadData("聲寶","vendor")
-    a.append(formatVendor(data_dict))
+    a.append(formatDatabase(data_dict,"vendor"))
     print(a[0].principle)
     
     #利用完整的檔案來做輸出/讀取---------------範例
     a[0].name = "abc"
     createYaml(a[0],"vendor")
     data_dict = loadData("abc","vendor")
-    a.append(formatVendor(data_dict))
+    a.append(formatDatabase(data_dict,"vendor"))
     
     #利用創造出來的檔案來做輸出/讀取-----------範例
     b = database.vendor("廠商一","123456789")
     createYaml(b,"vendor")
     data_dict = loadData("廠商一","vendor")
-    a.append(formatVendor(data_dict))
+    a.append(formatDatabase(data_dict,"vendor"))
     
     data_num = 0
     data_num = database.tools.a1z26("zAb")
