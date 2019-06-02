@@ -75,6 +75,14 @@ def formatVendor_list(data_list):
     for data_ in data_list:
         final.append(formatVendor())
     return final
+
+def getalldata(type_name):
+    a = []
+    a.append(formatVendor({"name":"廠商一","RN":"dddee544442e2","principle":"張先生","address":"新北市","product":[]}))
+    a.append(formatVendor({"name":"廠商二","RN":"ddddwe5545d22e2","principle":"張小姐","address":"台北市","product":[]}))
+    a.append(formatVendor({"name":"廠商三","RN":"dwwwd55555666e2","principle":"黃先生","address":"台中市","product":[]}))
+    a.append(formatVendor({"name":"廠商四","RN":"dddee5555889swwe2","principle":"鄭先生","address":"高雄市","product":[]}))
+    return a
     
 #=============================== main =================================
 if __name__ == '__main__':
