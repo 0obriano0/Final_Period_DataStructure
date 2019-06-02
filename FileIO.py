@@ -104,5 +104,6 @@ if __name__ == '__main__':
     data_dict = loadData("廠商一","vendor")
     a.append(formatVendor(data_dict))
     
+    dtool = database.tools()
     data_num = 0
-    data_num = database.tools.a1z26("zAb")
+    data_num = dtool.a1z26("zAb")

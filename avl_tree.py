@@ -275,15 +275,33 @@ if __name__ == "__main__":
     '''
     print("---------------------------分隔線---------------------------")
     b = AVLTree()
+    data_dict_translat = {}
     b.insert(50,database.vendor("廠商一","123456789"))
+    data_dict_translat["廠商一"] = 50
+    
     b.insert(40,database.vendor("廠商二","4444"))
+    data_dict_translat["廠商二"] = 40
+    
     b.insert(60,database.vendor("廠商三","44444"))
+    data_dict_translat["廠商三"] = 60
+    
     b.insert(30,database.vendor("廠商四","4444"))
+    data_dict_translat["廠商四"] = 30
+    
     b.insert(-10,database.vendor("廠商五","4444"))
+    data_dict_translat["廠商五"] = -10
+    
     b.insert(70,database.vendor("廠商六","4444"))
+    data_dict_translat["廠商六"] = 70
+    
     b.insert(35,database.vendor("廠商七","4444"))
+    data_dict_translat["廠商七"] = 35
+    
     b.insert(36,database.vendor("廠商八","4444"))
+    data_dict_translat["廠商八"] = 36
+    
     b.insert(38,database.vendor("廠商九","4444"))
+    data_dict_translat["廠商九"] = 38
     
     b.display()
     print(b.search(50).name)
