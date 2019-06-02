@@ -7,7 +7,6 @@ Created on %(date)s
 
 class vendor():
     name = ""
-    number = 0
     RN = 0
     principle = ""
     address = ""
@@ -19,17 +18,16 @@ class vendor():
             self.RN = RN
         else:
             self.name = data_dict["name"]
-            self.number = data_dict["number"]
             self.RN = data_dict["RN"]
             self.principle = data_dict["principle"]
             self.address = data_dict["address"]
             self.product = data_dict["product"]
         
     def search(self,type_str):
+        return eval("self." + type_str)
+        '''
         if type_str == "name":
             return self.name
-        elif type_str == "number":
-            return self.number
         elif type_str == "RN":
             return self.RN
         elif type_str == "principle":
@@ -40,8 +38,9 @@ class vendor():
             return self.product
         else:
             return None
+        '''
                 
-    def info(self): return [self.name,self.number,self.principle,self.principle,self.address,self.RN,self.product]
+    def info(self): return [self.name,self.principle,self.principle,self.address,self.RN,self.product]
         
 class product():
     number = ""
