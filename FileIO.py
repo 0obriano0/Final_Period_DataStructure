@@ -83,7 +83,6 @@ def getalldata(typeSelect):
     final_list = []
     file_list = os.listdir("./" + typeSelect + "/")  
     for data in file_list:
-        print(data)
         final_list.append(formatDatabase(loadData(data.split(".")[0],typeSelect),typeSelect))
     return final_list
 '''
