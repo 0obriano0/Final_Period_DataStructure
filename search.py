@@ -43,6 +43,11 @@ class search():
         
     def get_all_product(self,):
         self.product_data = avl.AVLTree()
+        data_buffer = []
+        data_buffer = FileIO.getalldata("product")
+        for i in data_buffer:
+            self.product_data.insert(db.tools.a1z26(i.SN),i)
+            self.product_dict[i.name] = db.tools.a1z26(i.SN)
     
     def __init__(self,):
         self.get_all_vendor()
@@ -52,7 +57,11 @@ class search():
         
 if __name__ == '__main__' :
     search_data = search()
-    data = []
-    data = search_data.vendor_data.get_all()
-    for i in data:
+    vdata = []
+    pdata = []
+    vdata = search_data.vendor_data.get_all()
+    pdata = search_data.product_data.get_all()
+    for i in vdata:
+        print(i.name)
+    for i in pdata:
         print(i.name)
