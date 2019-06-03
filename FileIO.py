@@ -70,7 +70,7 @@ def formatDatabase(data_dict,typeSelect):
     if typeSelect == "vendor":
         return database.vendor(data_dict["name"],data_dict["RN"],data_dict)
     elif typeSelect == "product":
-        return database.vendor(data_dict["name"],data_dict["SN"],data_dict)
+        return database.product(data_dict["name"],data_dict["SN"],data_dict)
 
 def formatDatabase_list(data_list,typeSelect):
     final = []
