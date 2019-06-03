@@ -4,6 +4,7 @@ Created on Sun May 26 15:27:48 2019
 
 @author: brian
 """
+import os
 import database
 import yaml
 #=============================== function =================================
@@ -79,6 +80,13 @@ def formatDatabase_list(data_list,typeSelect):
     return final
 
 def getalldata(typeSelect):
+    final_list = []
+    file_list = os.listdir("./" + typeSelect + "/")  
+    for data in file_list:
+        print(data)
+        final_list.append(formatDatabase(loadData(data.split(".")[0],typeSelect),typeSelect))
+    return final_list
+'''
     a = []
     if typeSelect == "vendor":
         a.append(formatDatabase({"name":"廠商一","RN":"dddee544442e2","principle":"張先生","address":"新北市","product":[]},"vendor"))
@@ -91,6 +99,7 @@ def getalldata(typeSelect):
         a.append(formatDatabase({"name":"鍵盤","number":3,"SN":45165748777,"warranty":"2019-12-05","weight":500,"volume":300,"category":"電腦周邊"},"product"))
         a.append(formatDatabase({"name":"耳機","number":4,"SN":5468785213215,"warranty":"2012-05-31","weight":1000,"volume":400,"category":"電腦周邊"},"product"))
     return a
+'''
     
 #=============================== main =================================
 if __name__ == '__main__':
