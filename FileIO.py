@@ -78,7 +78,7 @@ def formatDatabase_list(data_list,typeSelect):
         final.append(formatDatabase(data_,typeSelect))
     return final
 
-def getalldata(type_name,typeSelect):
+def getalldata(typeSelect):
     a = []
     if typeSelect == "vendor":
         a.append(formatDatabase({"name":"廠商一","RN":"dddee544442e2","principle":"張先生","address":"新北市","product":[]}),"vendor")
