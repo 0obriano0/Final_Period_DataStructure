@@ -86,10 +86,10 @@ def getalldata(typeSelect):
         a.append(formatDatabase({"name":"廠商三","RN":"dwwwd55555666e2","principle":"黃先生","address":"台中市","product":[]}),"vendor")
         a.append(formatDatabase({"name":"廠商四","RN":"dddee5555889swwe2","principle":"鄭先生","address":"高雄市","product":[]}),"vendor")
     elif typeSelect == "product":
-        a.append(formatDatabase({"name":"49吋螢幕","SN":1234564658,"warranty":"2019-02-05","weight":50,"volume":100,"category":"電腦周邊"}),"vendor")
-        a.append(formatDatabase({"name":"i7 電腦","SN":4556321548,"warranty":"2089-02-05","weight":400,"volume":200,"category":"電腦"}),"vendor")
-        a.append(formatDatabase({"name":"鍵盤","SN":45165748777,"warranty":"2019-12-05","weight":500,"volume":300,"category":"電腦周邊"}),"vendor")
-        a.append(formatDatabase({"name":"耳機","SN":5468785213215,"warranty":"2012-05-31","weight":1000,"volume":400,"category":"電腦周邊"}),"vendor")
+        a.append(formatDatabase({"name":"49吋螢幕","SN":1234564658,"warranty":"2019-02-05","weight":50,"volume":100,"category":"電腦周邊"}),"product")
+        a.append(formatDatabase({"name":"i7 電腦","SN":4556321548,"warranty":"2089-02-05","weight":400,"volume":200,"category":"電腦"}),"product")
+        a.append(formatDatabase({"name":"鍵盤","SN":45165748777,"warranty":"2019-12-05","weight":500,"volume":300,"category":"電腦周邊"}),"product")
+        a.append(formatDatabase({"name":"耳機","SN":5468785213215,"warranty":"2012-05-31","weight":1000,"volume":400,"category":"電腦周邊"}),"product")
     return a
     
 #=============================== main =================================
