@@ -11,7 +11,7 @@ import yaml
 def loadYaml(url):
     try:
         with open(url, "r", encoding="utf-8") as stream:
-            data = yaml.load(stream)
+            data = yaml.load(stream, Loader=yaml.FullLoader)
     except:
         data = None
     return data
