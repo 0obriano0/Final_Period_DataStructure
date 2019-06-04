@@ -24,7 +24,7 @@ class search():
         for i in data_buffer:
             self.vendor_data.insert(db.tools.a1z26(i.RN),i)
             self.vendor_dict[i.name] = db.tools.a1z26(i.RN)
-        
+
     def get_all_product(self,):
         self.product_data = avl.AVLTree()
         data_buffer = []
