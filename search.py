@@ -48,6 +48,9 @@ class search():
                 self.product_data.insert(db.tools.a1z26(item.SN),item)
                 self.product_dict[item.name] = db.tools.a1z26(item.SN)
             else: return debug
+            
+    def require(self,data):
+        
     
     def __init__(self,):
         self.get_all_vendor()
