@@ -33,39 +33,76 @@ def createYaml(data_database,typeSelect):
     final_dict = {}
     url = ""
     if data_database is not None:
-        secand_dict = {}
+        second_dict = {}
         if typeSelect  == "vendor":
-            url = "./" + typeSelect + "/" + data_database.name + ".yml"
+            if type(data_database) is database.vendor:
+                filename = data_database.name 
+            elif type(data_database) is dict:
+                filename = data_database['name']
+            else:
+                return -3
+            url = "./" + typeSelect + "/" + filename + ".yml"
             if loadYaml(url) is not None:
                 #print("此檔案已經存在")
                 return -1
-            secand_dict["name"] = data_database.name
-            secand_dict["RN"] = data_database.RN
-            secand_dict["principle"] = data_database.principle
-            secand_dict["address"] = data_database.address
-            secand_dict["product"] = data_database.product
+            if type(data_database) is database.vendor:
+                second_dict["name"] = data_database.name
+                second_dict["RN"] = data_database.RN
+                second_dict["principle"] = data_database.principle
+                second_dict["address"] = data_database.address
+                second_dict["product"] = data_database.product
+            elif type(data_database) is dict:
+                second_dict = data_database
+            else:
+                return -3
         elif typeSelect == "product":
-            url ="./" + typeSelect + "/" + data_database.number + ".yml"
+            if type(data_database) is database.vendor:
+                filename = data_database.name 
+            elif type(data_database) is dict:
+                filename = data_database['name']
+            else:
+                return -3
+            url = "./" + typeSelect + "/" + filename + ".yml"
             if loadYaml(url) is not None:
                 #print("此檔案已經存在")
                 return -1
-            secand_dict["name"] = data_database.name
-            secand_dict["number"] = data_database.number
-            secand_dict["SN"] = data_database.SN
-            secand_dict["warranty"] = data_database.warranty
-            secand_dict["volume"] = data_database.volume
-            secand_dict["weight"] = data_database.weight
-            secand_dict["category"] = data_database.category
+            if type(data_database) is database.vendor:
+                second_dict["name"] = data_database.name
+                second_dict["number"] = data_database.number
+                second_dict["SN"] = data_database.SN
+                second_dict["warranty"] = data_database.warranty
+                second_dict["volume"] = data_database.volume
+                second_dict["weight"] = data_database.weight
+                second_dict["category"] = data_database.category
+            elif type(data_database) is dict:
+                second_dict = data_database
+            else:
+                return -3
         else:
             #print("傳進來的資料結構有問題")
             return -2
-        final_dict[typeSelect] = secand_dict
+        final_dict[typeSelect] = second_dict
         with open(url, 'w', encoding="utf-8") as outfile:
             yaml.dump(final_dict, outfile, default_flow_style=False, encoding=('utf-8'), allow_unicode=True)
         return 1
     else:
         #print("傳入的資料結構是: None")
         return 0
+
+def remove(name,typeSelect):
+    url = "./" + typeSelect + "/" + name + ".yml"
+    if os.path.isfile(url):
+        try:
+            os.remove(url)
+        except OSError as e:
+            print(e)
+            return -1
+        else:
+            #print("File is deleted successfully")
+            return 1
+    else:
+        return 0
+    
 
 def formatDatabase(data_dict,typeSelect):
     if typeSelect == "vendor":
@@ -117,10 +154,14 @@ if __name__ == '__main__':
     
     #利用創造出來的檔案來做輸出/讀取-----------範例
     b = database.vendor("廠商一","123456789")
-    createYaml(b,"vendor")
+    #createYaml(b,"vendor")
+    createYaml({"name":"廠商一","RN":"dddee544442e2","principle":"張先生","address":"新北市","product":[]},"vendor")
     data_dict = loadData("廠商一","vendor")
     a.append(formatDatabase(data_dict,"vendor"))
     
     data_num = 0
     data_num = database.tools.a1z26("zAb")
     print("ddd",a[0].search("name"))
+    
+    #remove("廠商一","vendor")
+   
