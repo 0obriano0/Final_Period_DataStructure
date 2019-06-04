@@ -49,6 +49,28 @@ class search():
                 self.product_dict[item.name] = db.tools.a1z26(item.SN)
             else: return debug
             
+    def removeData(self,data_name,typeSelect):
+        if typeSelect == 'vendor':
+            if data_name in self.vendor_dict.keys():
+                if FileIO.remove(data_name,typeSelect) == 0:
+                    self.vendor_data.delete(data_name)
+                    self.vendor_dict.pop(data_name)
+                else:
+                    return FileIO.remove(data_name,typeSelect)
+        elif typeSelect == 'product':
+            if data_name in self.product_dict.keys():
+                if FileIO.remove(data_name,typeSelect) == 0:
+                    self.product_data.delete(data_name)
+                    self.product_dict.pop(data_name)
+                else:
+                    return FileIO.remove(data_name,typeSelect)
+                
+    def getName(self,number,typeSelect):
+        try:
+            return eval('list(self.' + typeSelect + '_dict.keys())[list(self.' + typeSelect + '_dict.values()).index(' + number + ')]')
+        except: #print('dict找不到number的key')
+            return -1
+            
     def require(self,data):
         return_list = []
         attribute = []
