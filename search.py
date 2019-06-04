@@ -17,22 +17,6 @@ class search():
     vendor_dict = {}
     product_dict = {} 
     
-    def req_vendor(self,select,name):
-        return_list = []
-        type_list = select.split(' and ')
-        for i in range(len(name)):
-            line=[]
-            for j in type_list:
-                line.append(name[i].search(j))
-            return_list.append(line)
-        return return_list
-    
-    def require(self,select,data,name):
-        if data == 'vendor' :
-            return self.req_vendor(select,name)
-        elif data == 'product': pass
-        else: return 'invalid database name , only vendor and product are available'
-    
     def get_all_vendor(self,):
         self.vendor_data = avl.AVLTree()
         data_buffer = []
@@ -48,6 +32,22 @@ class search():
         for i in data_buffer:
             self.product_data.insert(db.tools.a1z26(i.SN),i)
             self.product_dict[i.name] = db.tools.a1z26(i.SN)
+            
+    def createData(self,data_dict,typeSelect):
+        if typeSelect == 'vendor':
+            item = FileIO.formatDatabase(data_dict,typeSelect)
+            debug = FileIO.createYaml(item,typeSelect)
+            if debug == 1:
+                self.vendor_data.insert(db.tools.a1z26(item.RN),item)
+                self.vendor_dict[item.name] = db.tools.a1z26(item.RN)
+            else: return debug
+        elif typeSelect == 'product':
+            item = FileIO.formatDatabase(data_dict,typeSelect)
+            debug = FileIO.createYaml(item,typeSelect)
+            if debug == 1: 
+                self.product_data.insert(db.tools.a1z26(item.SN),item)
+                self.product_dict[item.name] = db.tools.a1z26(item.SN)
+            else: return debug
     
     def __init__(self,):
         self.get_all_vendor()
@@ -66,4 +66,7 @@ if __name__ == '__main__' :
     for i in pdata:
         print(i.name)
     print(search_data.vendor_dict,search_data.product_dict)
+    
+    fake = {"name":"廠商捌柒","RN":"dddee544442e2","principle":"張先生","address":"新北市","product":[]}
+    search_data.createData(fake,'vendor')
     
