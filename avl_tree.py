@@ -246,10 +246,27 @@ class AVLTree():
                 self.node.right.display(level + 1, '>')
     
     def get_all(self,):
+        '''
         database = []
         for data in self.inorder_traverse():
             database.append(self.search(data))
         return database
+        '''
+        if self.node == None:
+            return [] 
+        
+        inlist = [] 
+        l = self.node.left.get_all()
+        for i in l: 
+            inlist.append(i) 
+
+        inlist.append(self.node.database_)
+
+        l = self.node.right.get_all()
+        for i in l: 
+            inlist.append(i) 
+    
+        return inlist 
     
     def show(self,):
         for data in self.get_all():

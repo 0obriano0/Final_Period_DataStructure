@@ -148,6 +148,7 @@ if __name__ == '__main__':
     
     #利用完整的檔案來做輸出/讀取---------------範例
     a[0].name = "abc"
+    a[0].RN = "aaass555dde5"
     createYaml(a[0],"vendor")
     data_dict = loadData("abc","vendor")
     a.append(formatDatabase(data_dict,"vendor"))
