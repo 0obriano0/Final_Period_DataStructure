@@ -122,4 +122,5 @@ if __name__ == '__main__' :
     search_data.createData(fake,'vendor')
     abcde = search_data.require({'select':['RN'],'from':'vendor','where':{'name':'廠商捌柒'}})
     print(abcde)
+    #print(search_data.getName("dddee544442e2",'vendor'))
     
