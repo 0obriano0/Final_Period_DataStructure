@@ -20,7 +20,7 @@ class AVLTree():
         self.balance = 0; 
         
         if len(args) == 1: 
-            for i in args[0]: 
+            for i in args[0]:
                 self.insert(i)
                 
     def height(self):
