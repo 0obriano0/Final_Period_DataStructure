@@ -105,11 +105,13 @@ def remove(name,typeSelect):
     
 
 def formatDatabase(data_dict,typeSelect):
-    if typeSelect == "vendor":
-        return database.vendor(data_dict["name"],data_dict["RN"],data_dict)
-    elif typeSelect == "product":
-        return database.product(data_dict["name"],data_dict["SN"],data_dict)
-    return database.vendor('a','b',data_dict)
+    try:
+        if typeSelect == "vendor":
+            return database.vendor(data_dict["name"],data_dict["RN"],data_dict)
+        elif typeSelect == "product":
+            return database.product(data_dict["name"],data_dict["SN"],data_dict)
+    except:
+        return None
 
 def formatDatabase_list(data_list,typeSelect):
     final = []
