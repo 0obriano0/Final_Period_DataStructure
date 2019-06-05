@@ -77,12 +77,19 @@ class search():
         keys = []
         attribute = data['select']
         keys = data['where'].keys()
+        
+        print("---------------處裡一",data)
         if data['from'] == 'vendor':
+            print("---------------處裡二")
             vdata = self.vendor_data.get_all()
             for i in vdata:
+                print("---------------處裡三")
                 inside_return_list = []
                 for key in keys:
-                    if eval('i.' + key ) == data['where'][key]:
+                    print("---------------處裡四")
+                    print("keys",i.search(key))
+                    print(data['where'][key])
+                    if i.search(key) == data['where'][key]:
                         for att in attribute:
                             inside_return_list.append(eval('i.'+att))
                 if len(inside_return_list) > 0 :
@@ -99,6 +106,7 @@ class search():
                 if len(inside_return_list) > 0 :
                     return_list.append(inside_return_list)
             return return_list
+        return None
     
     def __init__(self,):
         self.get_all_vendor()
@@ -118,7 +126,7 @@ if __name__ == '__main__' :
         print(i.name)
     print(search_data.vendor_dict,search_data.product_dict)
     
-    fake = {"name":"廠商捌柒","RN":"dddee544442e2","principle":"張先生","address":"新北市","product":[]}
+    fake = {"name":"廠商捌柒","RN":"dddddee544442e2","principle":"張先生","address":"新北市","product":[]}
     search_data.createData(fake,'vendor')
     abcde = search_data.require({'select':['RN'],'from':'vendor','where':{'name':'廠商捌柒'}})
     print(abcde)

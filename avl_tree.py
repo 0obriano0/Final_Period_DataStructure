@@ -130,7 +130,7 @@ class AVLTree():
             self.balance = self.node.left.height - self.node.right.height 
         else: 
             self.balance = 0 
-            
+    '''        
     def search(self,key):
         if self.node != None: 
             if self.node.key == key: 
@@ -141,7 +141,36 @@ class AVLTree():
                 return self.node.right.search(key)
         else: 
             return None
-    
+    '''
+        
+    def search(self,*args):
+        a = 1
+        if len(args) == 1 and type(args[0]) == type(a):
+            key = args[0]
+            if self.node != None:
+                if self.node.key == key: 
+                    return  self.node.database_
+                elif key < self.node.key: 
+                    return self.node.left.search(key)  
+                elif key > self.node.key: 
+                    return self.node.right.search(key)    
+        elif len(args) == 2:
+            key = args[0]
+            vaule = args[1]
+            if self.node != None:
+                print("key = ",key,"vaule",vaule)
+                print("self.node.database_.search(key) = ",self.node.database_.search(key))
+                if self.node.database_.search(key) == vaule:
+                    return self.node.database_
+                
+                l = self.node.left.search(key,vaule)
+                if l is not None and l is not []:
+                    return l
+                
+                l = self.node.right.search(key,vaule)
+                if l is not None and l is not []:
+                    return l
+        return None
     
     def delete(self, key):
         # debug("Trying to delete at node: " + str(self.node.key))
@@ -351,3 +380,5 @@ if __name__ == "__main__":
     b.show()
     abcdefg = []
     abcdefg = b.get_all()
+    
+    print(b.search('name','廠商八'))
