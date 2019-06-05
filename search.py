@@ -77,18 +77,11 @@ class search():
         keys = []
         attribute = data['select']
         keys = data['where'].keys()
-        
-        print("---------------處裡一",data)
         if data['from'] == 'vendor':
-            print("---------------處裡二")
             vdata = self.vendor_data.get_all()
             for i in vdata:
-                print("---------------處裡三")
                 inside_return_list = []
                 for key in keys:
-                    print("---------------處裡四")
-                    print("keys",i.search(key))
-                    print(data['where'][key])
                     if i.search(key) == data['where'][key]:
                         for att in attribute:
                             inside_return_list.append(eval('i.'+att))

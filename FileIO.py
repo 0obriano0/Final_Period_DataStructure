@@ -14,6 +14,12 @@ def loadYaml(url):
             data = yaml.load(stream, Loader=yaml.FullLoader)
     except:
         data = None
+    if data is None:
+        try:
+            with open(url, "r", encoding="utf-8") as stream:
+                data = yaml.load(stream)
+        except:
+            data = None
     return data
 
 def loadData(name,typeSelect):
@@ -105,13 +111,10 @@ def remove(name,typeSelect):
     
 
 def formatDatabase(data_dict,typeSelect):
-    try:
-        if typeSelect == "vendor":
-            return database.vendor(data_dict["name"],data_dict["RN"],data_dict)
-        elif typeSelect == "product":
-            return database.product(data_dict["name"],data_dict["SN"],data_dict)
-    except:
-        return None
+    if typeSelect == "vendor":
+        return database.vendor(data_dict["name"],data_dict["RN"],data_dict)
+    elif typeSelect == "product":
+        return database.product(data_dict["name"],data_dict["SN"],data_dict)
 
 def formatDatabase_list(data_list,typeSelect):
     final = []
