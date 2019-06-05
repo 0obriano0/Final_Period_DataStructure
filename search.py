@@ -67,7 +67,12 @@ class search():
                 
     def getName(self,number,typeSelect):
         try:
-            return eval('list(self.' + typeSelect + '_dict.keys())[list(self.' + typeSelect + '_dict.values()).index(' + number + ')]')
+            listOfKeys = list()
+            listOfItems = eval('self.'+typeSelect+'_dict.items()')
+            for item  in listOfItems:
+                if item[1] == db.tools.a1z26(number):
+                    listOfKeys.append(item[0])
+            return  listOfKeys
         except: #print('dict找不到number的key')
             return -1
             
@@ -78,26 +83,24 @@ class search():
         attribute = data['select']
         keys = data['where'].keys()
         if data['from'] == 'vendor':
-            vdata = self.vendor_data.get_all()
-            for i in vdata:
-                inside_return_list = []
-                for key in keys:
-                    if i.search(key) == data['where'][key]:
-                        for att in attribute:
-                            inside_return_list.append(eval('i.'+att))
-                if len(inside_return_list) > 0 :
-                    return_list.append(inside_return_list)
+            for key in keys:
+                vdata  = self.vendor_data.search(key,data['where'][key])
+                for v in vdata:
+                    inside_return_list = []
+                    for att in attribute:
+                        inside_return_list.append(eval('v.' + att))
+                    if len(inside_return_list) > 0 :
+                        return_list.append(inside_return_list)
             return return_list
         elif data['from'] == 'product':
-            pdata = self.product_data.get_all()
-            for i in pdata:
-                inside_return_list = []
-                for key in keys:
-                    if eval('i.' + key ) == data['where'][key]:
-                        for att in attribute:
-                            inside_return_list.append(eval('i.'+att))
-                if len(inside_return_list) > 0 :
-                    return_list.append(inside_return_list)
+            for key in keys:
+                pdata  = self.product_data.search(key,data['where'][key])
+                for p in pdata:
+                    inside_return_list = []
+                    for att in attribute:
+                        inside_return_list.append(eval('v.' + att))
+                    if len(inside_return_list) > 0 :
+                        return_list.append(inside_return_list)
             return return_list
         return None
     
@@ -123,5 +126,5 @@ if __name__ == '__main__' :
     search_data.createData(fake,'vendor')
     abcde = search_data.require({'select':['RN'],'from':'vendor','where':{'name':'廠商捌柒'}})
     print(abcde)
-    #print(search_data.getName("dddee544442e2",'vendor'))
+    print(search_data.getName("dddee544442e2",'vendor'))
     
