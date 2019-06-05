@@ -158,8 +158,6 @@ class AVLTree():
             key = args[0]
             vaule = args[1]
             if self.node != None:
-                print("key = ",key,"vaule",vaule)
-                print("self.node.database_.search(key) = ",self.node.database_.search(key))
                 if self.node.database_.search(key) == vaule:
                     return self.node.database_
                 
