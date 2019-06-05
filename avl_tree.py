@@ -157,17 +157,21 @@ class AVLTree():
         elif len(args) == 2:
             key = args[0]
             vaule = args[1]
+            final_list = []
             if self.node != None:
                 if self.node.database_.search(key) == vaule:
-                    return self.node.database_
+                    final_list.append(self.node.database_)
                 
                 l = self.node.left.search(key,vaule)
-                if l is not None and l is not []:
-                    return l
+                if l is not None:
+                    for data in l:
+                        final_list.append(data)
                 
                 l = self.node.right.search(key,vaule)
-                if l is not None and l is not []:
-                    return l
+                if l is not None:
+                    for data in l:
+                        final_list.append(data)
+                return final_list
         return None
     
     def delete(self, key):
@@ -273,12 +277,6 @@ class AVLTree():
                 self.node.right.display(level + 1, '>')
     
     def get_all(self,):
-        '''
-        database = []
-        for data in self.inorder_traverse():
-            database.append(self.search(data))
-        return database
-        '''
         if self.node == None:
             return [] 
         
@@ -348,8 +346,17 @@ if __name__ == "__main__":
     b.insert(35,database.vendor("廠商七","4488844"))
     data_dict_translat["廠商七"] = 35
     
-    b.insert(36,database.vendor("廠商八","4477744"))
+    b.insert(36,database.vendor("廠商八","123456"))
     data_dict_translat["廠商八"] = 36
+    
+    b.insert(11222,database.vendor("廠商八","1234567"))
+    data_dict_translat["廠商八"] = 11222
+    
+    b.insert(1122232,database.vendor("廠商八","12345678"))
+    data_dict_translat["廠商八"] = 1122232
+    
+    b.insert(34444,database.vendor("廠商八","123456789"))
+    data_dict_translat["廠商八"] = 34444
     
     b.insert(38,database.vendor("廠商九","448899944"))
     data_dict_translat["廠商九"] = 38
@@ -379,4 +386,5 @@ if __name__ == "__main__":
     abcdefg = []
     abcdefg = b.get_all()
     
-    print(b.search('name','廠商八'))
+    for data in b.search('name','廠商八'):
+        print(data.name, " = ", data.RN)
