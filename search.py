@@ -121,15 +121,19 @@ if __name__ == '__main__' :
     pdata = []
     vdata = search_data.vendor_data.get_all()
     pdata = search_data.product_data.get_all()
+    '''
     for i in vdata:
         print(i.name)
     for i in pdata:
         print(i.name)
     print(search_data.vendor_dict,search_data.product_dict)
+    '''
     
     fake = {"name":"廠商捌柒","RN":"dddddee544442e2","principle":"張先生","address":"新北市","product":[]}
     search_data.createData(fake,'vendor')
+    abcdefg = search_data.require({'select': ['*'], 'from': 'vendor', 'where': {'RN': '1472'}})
     abcde = search_data.require({'select':['*'],'from':'vendor','where':{'name':'廠商捌柒'}})
+    print(abcdefg)
     print(abcde)
     print(search_data.getName("dddee544442e2",'vendor'))
     
