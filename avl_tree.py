@@ -14,6 +14,7 @@ class Node():
         self.database_ = None
 
 class AVLTree():
+    last_num = 0
     def __init__(self, *args):
         self.node = None 
         self.height = -1  

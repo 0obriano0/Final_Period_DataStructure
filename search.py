@@ -32,6 +32,7 @@ class search():
         for i in data_buffer:
             self.product_data.insert(db.tools.a1z26(i.SN),i)
             self.product_dict[i.name] = db.tools.a1z26(i.SN)
+        self.product_data.last_num = FileIO.last_num
     
     def insert_product(self,data_dict):
         if 'name' in data_dict:
@@ -46,15 +47,17 @@ class search():
             if vendor in self.vendor_dict:
                 product_data_ = None
                 getvendor = self.vendor_data.search(self.vendor_dict[vendor])
-                if product in getvendor.product:
+                if product in self.product_dict:
                     product_data_ = self.product_data.search(self.product_dict[product])
                     FileIO.remove(str(product_data_.SN),'product')
                 else:
-                    FileIO.last_num+=1
-                    product_data_ = db.product(product,FileIO.last_num)
-                    product_data_.number = FileIO.last_num
+                    self.product_data.last_num += 1
+                    from copy import deepcopy
+                    data = deepcopy(self.product_data.last_num)
+                    product_data_ = db.product(product,data_dict['SN'])
+                    product_data_.number = deepcopy(data)
                     product_data_.SN = data_dict['SN']
-                    getvendor.product[product] = FileIO.last_num
+                    getvendor.product[product] = data
                     FileIO.remove(getvendor.name,'vendor')
                     FileIO.createYaml(getvendor,'vendor')
                     self.product_data.insert(product_data_.SN,product_data_)

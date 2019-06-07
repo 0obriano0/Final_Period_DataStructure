@@ -44,8 +44,8 @@ def postinfo(inputstring):
     if((vendor[0] == 'vendor' or vendor[0] == 'RN') and quantity[0] == 'quantity' and SN[0]=='SN'):
         dic['vendor'] = vendor[1]
         dic[item[0]] = item[1]
-        dic[quantity[0]] = quantity[1]
-        dic[SN[0]] = SN[1]
+        dic[quantity[0]] = int(quantity[1])
+        dic[SN[0]] = int(SN[1])
     else:
         print("格式錯誤")
         return(-9999999)
@@ -65,7 +65,8 @@ if __name__ == '__main__' :
     
     #user_input_str = input("command: ")
     search_ = sb.search()
-    postinfo(fakestring4)
+    a = postinfo(fakestring4)
+    search_.insert_product(a)
 #=================================================#
 #
 #

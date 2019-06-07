@@ -132,10 +132,11 @@ def getalldata(typeSelect):
     final_list = []
     file_list = os.listdir("./" + typeSelect + "/")  
     for data in file_list:
+        buffer = formatDatabase(loadData(data.split(".")[0],typeSelect),typeSelect)
         if typeSelect == "product":
-            if last_num < int(data[:-4]):
-                last_num = int(data[:-4])
-        final_list.append(formatDatabase(loadData(data.split(".")[0],typeSelect),typeSelect))
+            if last_num < buffer.number:
+                last_num = buffer.number
+        final_list.append(buffer)
     return final_list
 '''
     a = []
