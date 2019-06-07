@@ -48,7 +48,7 @@ def getinfo(URL):
     dic['name'] = title[4:]
     dic['phonenum'] = a[3].text.replace(' ','')
     dic['address']= a[6].text.replace(' ','')
-    dic['product'] = []
+    dic['product'] = {}
     #print(dic)
     return dic
 

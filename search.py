@@ -32,7 +32,36 @@ class search():
         for i in data_buffer:
             self.product_data.insert(db.tools.a1z26(i.SN),i)
             self.product_dict[i.name] = db.tools.a1z26(i.SN)
+    
+    def insert_product(self,data_dict):
+        if 'name' in data_dict:
+            product = data_dict['name']
+            vendor = ""
+            if 'No' in data_dict:
+                vendor = data_dict['No']
+            elif 'vendor' in data_dict:
+                vendor = data_dict['vendor']
+            else:
+                return -9
+            if vendor in self.vendor_dict:
+                product_data_ = None
+                getvendor = self.vendor_data.search(self.vendor_dict[vendor])
+                if product in getvendor.product:
+                    product_data_ = self.product_data.search(self.product_dict[product])
+                    FileIO.remove(str(product_data_.SN),'product')
+                else:
+                    FileIO.last_num+=1
+                    product_data_ = db.product(product,FileIO.last_num)
+                    product_data_.number = FileIO.last_num
+                    product_data_.SN = data_dict['SN']
+                    getvendor.product[product] = FileIO.last_num
+                    FileIO.remove(getvendor.name,'vendor')
+                    FileIO.createYaml(getvendor,'vendor')
+                    self.product_data.insert(product_data_.SN,product_data_)
+                product_data_.quantity+=data_dict['quantity']
+                print("fileIO = ",FileIO.createYaml(product_data_,'product'))
             
+    
     def createData(self,data_dict,typeSelect):
         if typeSelect == 'vendor':
             item = FileIO.formatDatabase(data_dict,typeSelect)
@@ -121,12 +150,14 @@ if __name__ == '__main__' :
     pdata = []
     vdata = search_data.vendor_data.get_all()
     pdata = search_data.product_data.get_all()
+
     '''
     for i in vdata:
         print(i.name)
     for i in pdata:
         print(i.name)
     print(search_data.vendor_dict,search_data.product_dict)
+    '''
     '''
     
     fake = {"name":"廠商捌柒","RN":"dddddee544442e2","principle":"張先生","address":"新北市","product":[]}
@@ -136,4 +167,9 @@ if __name__ == '__main__' :
     print(abcdefg)
     print(abcde)
     print(search_data.getName("dddee544442e2",'vendor'))
-    
+    '''
+    search_data.insert_product({'name':"火車",'vendor':"一詮","quantity":2,"SN":12345678996})
+    search_data.insert_product({'name':"火車2",'vendor':"一詮","quantity":2,"SN":1234558996})
+    search_data.insert_product({'name':"火車4",'vendor':"一詮","quantity":2,"SN":1234565558996})
+    search_data.insert_product({'name':"火車5",'vendor':"一詮","quantity":2,"SN":12345555895})
+    search_data.insert_product({'name':"火車6",'vendor':"一詮","quantity":2,"SN":1234567556})

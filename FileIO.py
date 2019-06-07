@@ -8,6 +8,8 @@ import os
 import database
 import yaml
 #=============================== function =================================
+global last_num;
+
 def loadYaml(url):
     try:
         with open(url, "r", encoding="utf-8") as stream:
@@ -62,17 +64,17 @@ def createYaml(data_database,typeSelect):
             else:
                 return -3
         elif typeSelect == "product":
-            if type(data_database) is database.vendor:
-                filename = data_database.name 
+            if type(data_database) is database.product:
+                filename = str(data_database.SN)
             elif type(data_database) is dict:
-                filename = data_database['name']
+                filename = str(data_database['SN'])
             else:
                 return -3
             url = "./" + typeSelect + "/" + filename + ".yml"
             if loadYaml(url) is not None:
                 #print("此檔案已經存在")
                 return -1
-            if type(data_database) is database.vendor:
+            if type(data_database) is database.product:
                 second_dict["name"] = data_database.name
                 second_dict["number"] = data_database.number
                 second_dict["SN"] = data_database.SN
@@ -80,6 +82,7 @@ def createYaml(data_database,typeSelect):
                 second_dict["volume"] = data_database.volume
                 second_dict["weight"] = data_database.weight
                 second_dict["category"] = data_database.category
+                second_dict["quantity"] = data_database.quantity
             elif type(data_database) is dict:
                 second_dict = data_database
             else:
@@ -123,9 +126,15 @@ def formatDatabase_list(data_list,typeSelect):
     return final
 
 def getalldata(typeSelect):
+    global last_num
+    if typeSelect == "product":
+        last_num = 0
     final_list = []
     file_list = os.listdir("./" + typeSelect + "/")  
     for data in file_list:
+        if typeSelect == "product":
+            if last_num < int(data[:-4]):
+                last_num = int(data[:-4])
         final_list.append(formatDatabase(loadData(data.split(".")[0],typeSelect),typeSelect))
     return final_list
 '''

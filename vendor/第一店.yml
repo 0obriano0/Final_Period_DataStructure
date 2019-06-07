@@ -4,4 +4,4 @@ vendor:
   name: 第一店
   phonenum: 02-25418234
   principle: 顧安生
-  product: []
+  product: {}

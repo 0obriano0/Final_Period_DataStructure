@@ -2,6 +2,10 @@ vendor:
   RN: '2486'
   address: 台北新莊、大陸昆山、深圳、南京
   name: 一詮
-  phonenum: 02-22990001
   principle: 周萬順
-  product: []
+  product:
+    火車: 1
+    火車2: 2
+    火車4: 3
+    火車5: 4
+    火車6: 5
