@@ -80,6 +80,7 @@ class search():
         return_list = []
         attribute = []
         keys = []
+        all_att = ['name','RN','principle','address','product']
         attribute = data['select']
         keys = data['where'].keys()
         if data['from'] == 'vendor':
@@ -87,8 +88,12 @@ class search():
                 vdata  = self.vendor_data.search(key,data['where'][key])
                 for v in vdata:
                     inside_return_list = []
-                    for att in attribute:
-                        inside_return_list.append(eval('v.' + att))
+                    if '*' in attribute:
+                        for att in all_att:
+                            inside_return_list.append(eval('v.' + att))
+                    else:
+                        for att in attribute:
+                            inside_return_list.append(eval('v.' + att))
                     if len(inside_return_list) > 0 :
                         return_list.append(inside_return_list)
             return return_list
@@ -97,12 +102,15 @@ class search():
                 pdata  = self.product_data.search(key,data['where'][key])
                 for p in pdata:
                     inside_return_list = []
-                    for att in attribute:
-                        inside_return_list.append(eval('v.' + att))
+                    if '*' in attribute:
+                        for att in all_att:
+                            inside_return_list.append(eval('p.' + att))
+                    else:
+                        for att in attribute:
+                            inside_return_list.append(eval('p.' + att))
                     if len(inside_return_list) > 0 :
                         return_list.append(inside_return_list)
             return return_list
-        return None
     
     def __init__(self,):
         self.get_all_vendor()
