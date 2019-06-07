@@ -80,7 +80,8 @@ class search():
         return_list = []
         attribute = []
         keys = []
-        all_att = ['name','RN','principle','address','product']
+        all_vatt = ['name','RN','principle','address','product']
+        all_patt = ['name','SN','number','warranty','volume','weight','category']
         attribute = data['select']
         keys = data['where'].keys()
         if data['from'] == 'vendor':
@@ -89,7 +90,7 @@ class search():
                 for v in vdata:
                     inside_return_list = []
                     if '*' in attribute:
-                        for att in all_att:
+                        for att in all_vatt:
                             inside_return_list.append(eval('v.' + att))
                     else:
                         for att in attribute:
@@ -103,7 +104,7 @@ class search():
                 for p in pdata:
                     inside_return_list = []
                     if '*' in attribute:
-                        for att in all_att:
+                        for att in all_patt:
                             inside_return_list.append(eval('p.' + att))
                     else:
                         for att in attribute:
