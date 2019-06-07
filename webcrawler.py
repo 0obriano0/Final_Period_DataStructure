@@ -25,8 +25,11 @@ def getnum():
     res.encoding = 'CP950'
     soup = BeautifulSoup(res.text, "html.parser")
     a = soup.find_all("td" , {"class" : "xl24"})
-    for i in range(1000):
-        buffer = a[i].text.split(' ')[0].replace('\xa0','')
+    for i in range(10000):
+        try:
+            buffer = a[i].text.split(' ')[0].replace('\xa0','')
+        except:
+            return alist
         if buffer is not '':
             alist.append(buffer)
     #print(alist)
