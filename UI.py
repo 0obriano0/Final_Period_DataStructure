@@ -32,7 +32,26 @@ def getinfo(inputstring):
     else:
         #print("語法錯誤")
         return(-999999999)
-        
+    
+def postinfo(inputstring):
+    dic = {}
+    listwords = inputstring.split(' ')
+    vendorname = listwords[1].replace('"','').split(',')
+    vendor = vendorname[0].split('=')
+    item = vendorname[1].split('=')
+    quantity = vendorname[2].split('=')
+    SN = vendorname[3].split('=')
+    if((vendor[0] == 'vendor' or vendor[0] == 'RN') and quantity[0] == 'quantity' and SN[0]=='SN'):
+        dic['vendor'] = vendor[1]
+        dic[item[0]] = item[1]
+        dic[quantity[0]] = quantity[1]
+        dic[SN[0]] = SN[1]
+    else:
+        print("格式錯誤")
+        return(-9999999)
+    print(dic)
+    return dic
+
 #==================================================#
 #input
 #==================================================#
@@ -40,21 +59,24 @@ if __name__ == '__main__' :
     fakesrting1 = 'select "name","RN" from "vendor" where "name"="UX501VW","rn"="4654654"' #output 'UX501VW' '23638777'
     fakestring2 = 'select * from "vendor" where "name"="ASUS"' #output 'UX501VW' 'ASUS' '23638777' '施先生' '台北市承德路' '26073'
     fakestring3 = 'select "name","address" from "vendor" where "RN"="aasswwwddd555"' #output 'UX501VW' 'ASUS' '23638777' '施先生' '台北市承德路' '26073'
-    fakestring4 = 'post "vendor"="一詮","name"="火車" quantity 120'
+    fakestring4 = 'post "vendor"="一詮","name"="dildo","quantity"="120","SN"="8613213546"'
+    fakestring5 = 'pop "vendor"="一詮","name"="dildo","quantity"="120","SN"="8613213546"'
     realstr = 'select "name","RN" from "vendor" where "name"="三洋紡","RN"="1472"'
     
-    user_input_str = input("command: ")
+    #user_input_str = input("command: ")
     search_ = sb.search()
+    postinfo(fakestring4)
 #=================================================#
 #
 #
 #=================================================#
-    if(user_input_str.split(' ')[0] == 'select'):
+'''    if(user_input_str.split(' ')[0] == 'select'):
         infolist = getinfo(user_input_str)
         info = search_.require(infolist)
     elif(user_input_str.split(' ')[0] == 'post'):
         print('post')
-    
+        
     df_data = pd.DataFrame(info, columns = infolist['select'])
     print(df_data)
     
+'''
