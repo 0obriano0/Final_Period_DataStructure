@@ -32,7 +32,7 @@ def getinfo(inputstring):
     else:
         #print("語法錯誤")
         return(-999999999)
-    
+        
 #==================================================#
 #input
 #==================================================#
@@ -48,3 +48,5 @@ if __name__ == '__main__' :
     
     df_data = pd.DataFrame(info, columns = a['select'])
     print(df_data)
+    
+    

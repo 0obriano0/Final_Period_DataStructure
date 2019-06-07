@@ -159,7 +159,7 @@ class AVLTree():
             vaule = args[1]
             final_list = []
             if self.node != None:
-                if self.node.database_.search(key) == vaule:
+                if vaule in self.node.database_.search(key):
                     final_list.append(self.node.database_)
                 
                 l = self.node.left.search(key,vaule)
