@@ -1,9 +1,7 @@
 vendor:
-  name: "聲寶"
-  #廠商代號
-  RN: aasswwwddd555
-  principle: "張先生"
-  address: "叉叉國叉叉市"
-  product: 
-    AM-PC22DC1: 00001
-    AU-PC22DC1: 00002
+  RN: '1604'
+  address: 林口、土城、岡山、台南
+  name: 聲寶
+  phonenum: 03-3975151
+  principle: 財團法人陳茂榜工商發展基金會
+  product: []

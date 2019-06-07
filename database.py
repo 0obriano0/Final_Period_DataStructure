@@ -50,6 +50,7 @@ class product:
     volume = ""
     weight = 0
     category = ""
+    quantity = 0
     
     def __init__(self,name,SN,data_dict = None):
         if data_dict is None:
@@ -63,11 +64,12 @@ class product:
             self.volume = data_dict["volume"]
             self.weight = data_dict["weight"]
             self.category = data_dict["category"]
-        
+            self.quantity = data_dict["quantity"]
+            
     def search(self,type_str):
         return eval("self." + type_str)
         
-    def info(self): return [self.number,self.name,self.SN,self.warranty,self.volume,self.weight,self.category]
+    def info(self): return [self.number,self.name,self.SN,self.warranty,self.volume,self.weight,self.category,self.quantity]
 
 class tools:
     def a1z26(str_data):
