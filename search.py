@@ -90,11 +90,9 @@ class search():
                 for v in vdata:
                     inside_return_list = []
                     if '*' in attribute:
-                        for att in all_vatt:
-                            inside_return_list.append(eval('v.' + att))
-                    else:
-                        for att in attribute:
-                            inside_return_list.append(eval('v.' + att))
+                        attribute = all_vatt
+                    for att in attribute:
+                        inside_return_list.append(eval('v.' + att))      
                     if len(inside_return_list) > 0 :
                         return_list.append(inside_return_list)
             return return_list
@@ -104,11 +102,9 @@ class search():
                 for p in pdata:
                     inside_return_list = []
                     if '*' in attribute:
-                        for att in all_patt:
-                            inside_return_list.append(eval('p.' + att))
-                    else:
-                        for att in attribute:
-                            inside_return_list.append(eval('p.' + att))
+                        attribute = all_patt
+                    for att in attribute:
+                        inside_return_list.append(eval('p.' + att))  
                     if len(inside_return_list) > 0 :
                         return_list.append(inside_return_list)
             return return_list
@@ -133,7 +129,7 @@ if __name__ == '__main__' :
     
     fake = {"name":"廠商捌柒","RN":"dddddee544442e2","principle":"張先生","address":"新北市","product":[]}
     search_data.createData(fake,'vendor')
-    abcde = search_data.require({'select':['RN'],'from':'vendor','where':{'name':'廠商捌柒'}})
+    abcde = search_data.require({'select':['*'],'from':'vendor','where':{'name':'廠商捌柒'}})
     print(abcde)
     print(search_data.getName("dddee544442e2",'vendor'))
     
