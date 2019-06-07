@@ -40,13 +40,21 @@ if __name__ == '__main__' :
     fakesrting1 = 'select "name","RN" from "vendor" where "name"="UX501VW","rn"="4654654"' #output 'UX501VW' '23638777'
     fakestring2 = 'select * from "vendor" where "name"="ASUS"' #output 'UX501VW' 'ASUS' '23638777' '施先生' '台北市承德路' '26073'
     fakestring3 = 'select "name","address" from "vendor" where "RN"="aasswwwddd555"' #output 'UX501VW' 'ASUS' '23638777' '施先生' '台北市承德路' '26073'
+    fakestring4 = 'post "vendor"="一詮","name"="火車" quantity 120'
     realstr = 'select "name","RN" from "vendor" where "name"="三洋紡","RN"="1472"'
+    
     user_input_str = input("command: ")
     search_ = sb.search()
-    a = getinfo(user_input_str)
-    info = search_.require(a)
+#=================================================#
+#
+#
+#=================================================#
+    if(user_input_str.split(' ')[0] == 'select'):
+        infolist = getinfo(user_input_str)
+        info = search_.require(infolist)
+    elif(user_input_str.split(' ')[0] == 'post'):
+        print('post')
     
-    df_data = pd.DataFrame(info, columns = a['select'])
+    df_data = pd.DataFrame(info, columns = infolist['select'])
     print(df_data)
-    
     
