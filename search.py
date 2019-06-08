@@ -47,8 +47,11 @@ class search():
             if vendor in self.vendor_dict:
                 product_data_ = None
                 getvendor = self.vendor_data.search(self.vendor_dict[vendor])
-                if product in self.product_dict:
-                    product_data_ = self.product_data.search(self.product_dict[product])
+                if product in getvendor.product:
+                    product_data_ = self.product_data.search(getvendor.product[product])
+                    if product_data_.SN != data_dict['SN']:
+                        #print("資料名稱 跟 商品條碼不符合")
+                        return -4
                     FileIO.remove(str(product_data_.SN),'product')
                 else:
                     self.product_data.last_num += 1
@@ -81,9 +84,7 @@ class search():
                 product_data_ = None
                 getvendor = self.vendor_data.search(self.vendor_dict[vendor])
                 if product in getvendor.product:
-                    print("getvendor.product[product]",getvendor.product[product])
                     product_data_ = self.product_data.search(getvendor.product[product])
-                    print("product_data_",product_data_)
                     if product_data_.quantity >= data_dict['quantity']:
                         FileIO.remove(str(product_data_.SN),'product')
                         product_data_.quantity-=data_dict['quantity']
