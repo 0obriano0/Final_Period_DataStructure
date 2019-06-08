@@ -137,7 +137,8 @@ class search():
                 if item[1] == db.tools.a1z26(number):
                     listOfKeys.append(item[0])
             return  listOfKeys
-        except: #print('dict找不到number的key')
+        except: 
+            #print('dict找不到number的key')
             return -1
             
     def require(self,data):
