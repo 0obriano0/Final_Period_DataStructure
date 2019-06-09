@@ -7,9 +7,10 @@ Created on Tue Jun  4 21:06:37 2019
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
-import statistics
 import pandas as pd
 import search as sb
+import time
+import os
 
 
 def getinfo(inputstring):
@@ -22,9 +23,17 @@ def getinfo(inputstring):
         from_ = listwords[3].replace('"','')
         where_ = listwords[5].replace('"','').split(',')
         for i in where_:
+            if "=" not in i:
+                return -999999999
             buffer = i.split('=')
             dicwhere[buffer[0]] = buffer[1]
-        dic['select'] = select_
+        if select_[0] == "*":
+            if from_ == "vendor":
+                dic['select'] = ['name','RN','principle','address','product']
+            elif from_ == "product":
+                dic['select'] = ['name','SN','number','warranty','volume','weight','category']
+        else:
+            dic['select'] = select_
         dic['from'] = from_
         dic['where'] = dicwhere
         #print(dic)
@@ -33,7 +42,7 @@ def getinfo(inputstring):
         #print("語法錯誤")
         return(-999999999)
     
-def postinfo(inputstring):
+def post_popinfo(inputstring):
     dic = {}
     listwords = inputstring.split(' ')
     vendorname = listwords[1].replace('"','').split(',')
@@ -49,7 +58,7 @@ def postinfo(inputstring):
     else:
         print("格式錯誤")
         return(-9999999)
-    print(dic)
+    #print(dic)
     return dic
 
 #==================================================#
@@ -72,28 +81,47 @@ if __name__ == '__main__' :
 #=================================================#
     while(1):
         user_input_str = input("command: ")
+        
         check_button = 1
-        for check_data in [' ',',','"']:
-            if check_data not in user_input_str:
-                check_button = 0
-                break
-        if check_button == 0:
-            print('輸入錯誤')
-            continue
+        
+        if user_input_str != "exit":
+            for check_data in [' ','"']:
+                if check_data not in user_input_str:
+                    check_button = 0
+                    break
+            if check_button == 0:
+                print('輸入錯誤')
+                continue
         
         if(user_input_str.split(' ')[0] == 'select'):
             infolist = getinfo(user_input_str)
+            if infolist == -999999999:
+                print('輸入錯誤')
+                continue
             info = search_.require(infolist)
+            if info == []:
+                print('查無資料')
+                continue
             df_data = pd.DataFrame(info, columns = infolist['select'])
+            df_data.to_csv('./outputFile/' + time.strftime("%Y-%m-%d_%H-%M-%S", time.localtime()) + '.csv', encoding='utf_8_sig', index = False)
             print(df_data)
+            print("FileCreate: ",os.getcwd(),"/" + time.strftime("%Y-%m-%d_%H-%M-%S", time.localtime()) + '.csv')
         elif(user_input_str.split(' ')[0] == 'post'):
-            infolist = postinfo(user_input_str)
+            try:
+                infolist = post_popinfo(user_input_str)
+            except:
+                print('輸入錯誤')
+                continue
             search_.insert_product(infolist)
-            print(infolist)
+            print("input command(post):",infolist)
         elif(user_input_str.split(' ')[0] == 'pop'):
-            infolist = postinfo(user_input_str)
+            try:
+                infolist = post_popinfo(user_input_str)
+            except:
+                print('輸入錯誤')
+                continue
             search_.take_product(infolist)
-            print(infolist)
+            print("input command(pop):",infolist)
         elif(user_input_str=='exit'):
             print('結束程式')
             break
