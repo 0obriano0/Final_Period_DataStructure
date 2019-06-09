@@ -72,6 +72,15 @@ if __name__ == '__main__' :
 #=================================================#
     while(1):
         user_input_str = input("command: ")
+        check_button = 1
+        for check_data in [' ',',','"']:
+            if check_data not in user_input_str:
+                check_button = 0
+                break
+        if check_button == 0:
+            print('輸入錯誤')
+            continue
+        
         if(user_input_str.split(' ')[0] == 'select'):
             infolist = getinfo(user_input_str)
             info = search_.require(infolist)
