@@ -63,7 +63,7 @@ if __name__ == '__main__' :
     fakestring5 = 'pop "vendor"="一詮","name"="dildo","quantity"="120","SN"="8613213546"'
     realstr = 'select "name","RN" from "vendor" where "name"="三洋紡","RN"="1472"'
     
-    #user_input_str = input("command: ")
+    user_input_str = input("command: ")
     search_ = sb.search()
     a = postinfo(fakestring4)
     search_.insert_product(a)
@@ -71,13 +71,15 @@ if __name__ == '__main__' :
 #
 #
 #=================================================#
-'''    if(user_input_str.split(' ')[0] == 'select'):
+    if(user_input_str.split(' ')[0] == 'select'):
         infolist = getinfo(user_input_str)
         info = search_.require(infolist)
-    elif(user_input_str.split(' ')[0] == 'post'):
-        print('post')
+        df_data = pd.DataFrame(info, columns = infolist['select'])
+        print(df_data)
+    elif(user_input_str.split(' ')[0] == 'post' or user_input_str.split(' ')[0] == 'pop'):
+        infolist = postinfo(user_input_str)
+        print(infolist)
         
-    df_data = pd.DataFrame(info, columns = infolist['select'])
-    print(df_data)
+        
     
-'''
+    
