@@ -31,7 +31,7 @@ def getinfo(inputstring):
             if from_ == "vendor":
                 dic['select'] = ['name','RN','principle','address','product']
             elif from_ == "product":
-                dic['select'] = ['name','SN','number','warranty','volume','weight','category']
+                dic['select'] = ['name','SN','number','warranty','volume','weight','category','quantity']
         else:
             dic['select'] = select_
         dic['from'] = from_

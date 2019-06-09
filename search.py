@@ -146,7 +146,7 @@ class search():
         attribute = []
         keys = []
         all_vatt = ['name','RN','principle','address','product']
-        all_patt = ['name','SN','number','warranty','volume','weight','category']
+        all_patt = ['name','SN','number','warranty','volume','weight','category','quantity']
         attribute = data['select']
         keys = data['where'].keys()
         if data['from'] == 'vendor':
