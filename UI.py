@@ -60,24 +60,37 @@ if __name__ == '__main__' :
     fakestring2 = 'select * from "vendor" where "name"="ASUS"' #output 'UX501VW' 'ASUS' '23638777' '施先生' '台北市承德路' '26073'
     fakestring3 = 'select "name","address" from "vendor" where "RN"="aasswwwddd555"' #output 'UX501VW' 'ASUS' '23638777' '施先生' '台北市承德路' '26073'
     fakestring4 = 'post "vendor"="一詮","name"="dildo","quantity"="120","SN"="8613213546"'
-    fakestring5 = 'pop "vendor"="一詮","name"="dildo","quantity"="120","SN"="8613213546"'
+    fakestring5 = 'pop "vendor"="一詮","name"="dildo","quantity"="12","SN"="8613213546"'
     realstr = 'select "name","RN" from "vendor" where "name"="三洋紡","RN"="1472"'
     
-    #user_input_str = input("command: ")
     search_ = sb.search()
-    a = postinfo(fakestring4)
-    search_.insert_product(a)
+    '''a = postinfo(fakestring4)
+    search_.insert_product(a)'''
 #=================================================#
 #
 #
 #=================================================#
-'''    if(user_input_str.split(' ')[0] == 'select'):
-        infolist = getinfo(user_input_str)
-        info = search_.require(infolist)
-    elif(user_input_str.split(' ')[0] == 'post'):
-        print('post')
+    while(1):
+        user_input_str = input("command: ")
+        if(user_input_str.split(' ')[0] == 'select'):
+            infolist = getinfo(user_input_str)
+            info = search_.require(infolist)
+            df_data = pd.DataFrame(info, columns = infolist['select'])
+            print(df_data)
+        elif(user_input_str.split(' ')[0] == 'post'):
+            infolist = postinfo(user_input_str)
+            search_.insert_product(infolist)
+            print(infolist)
+        elif(user_input_str.split(' ')[0] == 'pop'):
+            infolist = postinfo(user_input_str)
+            search_.take_product(infolist)
+            print(infolist)
+        elif(user_input_str=='exit'):
+            print('結束程式')
+            break
+        else:
+            print('輸入錯誤')
+            
         
-    df_data = pd.DataFrame(info, columns = infolist['select'])
-    print(df_data)
     
-'''
+    
