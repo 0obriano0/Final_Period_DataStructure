@@ -47,8 +47,11 @@ class search():
             if vendor in self.vendor_dict:
                 product_data_ = None
                 getvendor = self.vendor_data.search(self.vendor_dict[vendor])
-                if product in self.product_dict:
-                    product_data_ = self.product_data.search(self.product_dict[product])
+                if product in getvendor.product:
+                    product_data_ = self.product_data.search(getvendor.product[product])
+                    if product_data_.SN != data_dict['SN']:
+                        #print("資料名稱 跟 商品條碼不符合")
+                        return -4
                     FileIO.remove(str(product_data_.SN),'product')
                 else:
                     self.product_data.last_num += 1
@@ -57,12 +60,41 @@ class search():
                     product_data_ = db.product(product,data_dict['SN'])
                     product_data_.number = deepcopy(data)
                     product_data_.SN = data_dict['SN']
-                    getvendor.product[product] = data
+                    getvendor.product[product] = product_data_.SN
                     FileIO.remove(getvendor.name,'vendor')
                     FileIO.createYaml(getvendor,'vendor')
+                    self.product_dict[product] = product_data_.SN 
                     self.product_data.insert(product_data_.SN,product_data_)
                 product_data_.quantity+=data_dict['quantity']
-                print("fileIO = ",FileIO.createYaml(product_data_,'product'))
+                #print("fileIO = ",FileIO.createYaml(product_data_,'product'))
+                FileIO.createYaml(product_data_,'product')
+                return 1
+        return -1
+    def take_product(self,data_dict):
+        if 'name' in data_dict:
+            product = data_dict['name']
+            vendor = ""
+            if 'No' in data_dict:
+                vendor = data_dict['No']
+            elif 'vendor' in data_dict:
+                vendor = data_dict['vendor']
+            else:
+                return -9
+            if vendor in self.vendor_dict:
+                product_data_ = None
+                getvendor = self.vendor_data.search(self.vendor_dict[vendor])
+                if product in getvendor.product:
+                    product_data_ = self.product_data.search(getvendor.product[product])
+                    if product_data_.quantity >= data_dict['quantity']:
+                        FileIO.remove(str(product_data_.SN),'product')
+                        product_data_.quantity-=data_dict['quantity']
+                        FileIO.createYaml(product_data_,'product')
+                    else:
+                        #print("提取數量大於庫存數量")
+                        return -2
+                else:
+                    #print("查無此商品")
+                    return -3
             
     
     def createData(self,data_dict,typeSelect):
@@ -105,7 +137,8 @@ class search():
                 if item[1] == db.tools.a1z26(number):
                     listOfKeys.append(item[0])
             return  listOfKeys
-        except: #print('dict找不到number的key')
+        except: 
+            #print('dict找不到number的key')
             return -1
             
     def require(self,data):
@@ -176,3 +209,4 @@ if __name__ == '__main__' :
     search_data.insert_product({'name':"火車4",'vendor':"一詮","quantity":2,"SN":1234565558996})
     search_data.insert_product({'name':"火車5",'vendor':"一詮","quantity":2,"SN":12345555895})
     search_data.insert_product({'name':"火車6",'vendor':"一詮","quantity":2,"SN":1234567556})
+    search_data.take_product({'name':"火車6",'vendor':"一詮","quantity":3,"SN":1234567556})
