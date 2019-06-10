@@ -5,10 +5,8 @@ Created on Fri Jun  7 16:26:14 2019
 @author: asus
 """
 
-import pandas as pd
 from bs4 import BeautifulSoup
 import requests
-import re
 import FileIO
 
 rs = requests.session()
