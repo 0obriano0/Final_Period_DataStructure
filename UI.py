@@ -5,9 +5,6 @@ Created on Tue Jun  4 21:06:37 2019
 @author: asus
 """
 import pandas as pd
-import matplotlib.pyplot as plt
-import numpy as np
-import pandas as pd
 import search as sb
 import time
 import os
@@ -15,7 +12,6 @@ import os
 
 def getinfo(inputstring):
     listwords = inputstring.split(" ")
-    #print(listwords)
     if(listwords[0]=='select' and listwords[2]=='from' and listwords[4] == 'where'):
         dic = {}
         dicwhere = {} 
@@ -36,10 +32,8 @@ def getinfo(inputstring):
             dic['select'] = select_
         dic['from'] = from_
         dic['where'] = dicwhere
-        #print(dic)
         return dic
     else:
-        #print("語法錯誤")
         return(-999999999)
     
 def post_popinfo(inputstring):
@@ -65,16 +59,14 @@ def post_popinfo(inputstring):
 #input
 #==================================================#
 if __name__ == '__main__' :
-    fakesrting1 = 'select "name","RN" from "vendor" where "name"="UX501VW","rn"="4654654"' #output 'UX501VW' '23638777'
-    fakestring2 = 'select * from "vendor" where "name"="ASUS"' #output 'UX501VW' 'ASUS' '23638777' '施先生' '台北市承德路' '26073'
-    fakestring3 = 'select "name","address" from "vendor" where "RN"="aasswwwddd555"' #output 'UX501VW' 'ASUS' '23638777' '施先生' '台北市承德路' '26073'
+    fakesrting1 = 'select "name","RN" from "vendor" where "name"="UX501VW","rn"="4654654"'
+    fakestring2 = 'select * from "vendor" where "name"="ASUS"' 
+    fakestring3 = 'select "name","address" from "vendor" where "RN"="aasswwwddd555"' 
     fakestring4 = 'post "vendor"="一詮","name"="dildo","quantity"="120","SN"="8613213546"'
     fakestring5 = 'pop "vendor"="一詮","name"="dildo","quantity"="12","SN"="8613213546"'
     realstr = 'select "name","RN" from "vendor" where "name"="三洋紡","RN"="1472"'
     
     search_ = sb.search()
-    '''a = postinfo(fakestring4)
-    search_.insert_product(a)'''
 #=================================================#
 #
 #
