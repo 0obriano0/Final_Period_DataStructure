@@ -175,6 +175,7 @@ class search():
             return return_list
     
     def __init__(self,):
+        print("正在將外部檔案載入...")
         self.get_all_vendor()
         self.get_all_product()
         print("讀取完成")
